@@ -63,6 +63,10 @@ configure_webdav:
             if ($request_method = COPY) {
                 set $parse "${parse}M";
             }
+            if ($request_method = PROPPATCH) { # Unsupported, allways return OK.
+            	add_header Content-Type 'text/xml';
+            	return 207 '<?xml version="1.0"?><a:multistatus xmlns:a="DAV:"><a:response><a:propstat><a:status>HTTP/1.1 200 OK</a:status></a:propstat></a:response></a:multistatus>';
+            }
             if (-d $request_filename) {
                 rewrite ^(.*[^/])$ $1/;
                 set $parse "${parse}D";
