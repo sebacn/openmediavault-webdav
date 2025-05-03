@@ -51,6 +51,7 @@ configure_webdav:
             auth_pam_service_name "openmediavault-webdav";
             {% endif -%}
             autoindex on;
+            client_max_body_size 500M;
             error_page 404 /_404;
             if ($request_method = MKCOL) {
                 rewrite ^(.*[^/])$ $1/;
